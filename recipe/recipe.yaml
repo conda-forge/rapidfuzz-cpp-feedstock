@@ -1,5 +1,5 @@
 context:
-  version: 3.3.3
+  version: "3.3.4"
 
 package:
   name: rapidfuzz-cpp
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/rapidfuzz/rapidfuzz-cpp/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: "fa0fbd40110df8134cf05bddbaa4e237dbc4fd915ab9a3029ff481a8d3e8b757"
+  sha256: "a0dd2ef361cac165e12076696e7c7e8d069a2908abd9599ad4bd190de33f9881"
 
 build:
   number: 0
@@ -25,15 +25,13 @@ build:
         ninja install
         if errorlevel 1 exit 1
 
-    - if: not win
-      then: |
+      else: |
         mkdir build && cd build
         cmake -G "Ninja" ${CMAKE_ARGS} \
           -DRAPIDFUZZ_BUILD_TESTING=OFF \
           -DRAPIDFUZZ_BUILD_BENCHMARKS=OFF \
           ${SRC_DIR}
         ninja install
-
 requirements:
   build:
     - ${{ compiler('cxx') }}
